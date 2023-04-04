@@ -2,6 +2,13 @@ import './App.css'
 import { useSelector, useDispatch } from 'react-redux';
 import { increment, decrement } from './slices/counter';
 
+const thunkFunction = (dispatch, getState) => {
+  const stateBefore = getState();
+  console.log('State before', stateBefore.counter);
+  dispatch(increment());
+  const stateAfter = getState();
+  console.log('State after', stateAfter.counter);
+}
 function App() {
   const count = useSelector(state => state.counter.value);
   const dispatch = useDispatch();
@@ -16,6 +23,9 @@ function App() {
       <button
         onClick={() => {dispatch(decrement())}}
       >Decrement</button>
+      <button
+        onClick={() => {dispatch(thunkFunction)}}
+      >Thunk button</button>
     </div>
   )
 }
